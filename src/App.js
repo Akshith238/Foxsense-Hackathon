@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import SignIn from './components/root/SignIn';
+import AdminSignIn from './components/root/AdminSignIn';
+import Cart from './components/cart/Cart';
+import { CartContextProvider } from './context/CartContext';
+import { OrderContextProvider } from './context/OrderContext';
+import Order from './components/order/Order';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <OrderContextProvider>
+      <CartContextProvider>
+        <BrowserRouter>
+          <div className='App font-poppins'>
+            <Routes>
+              <Route exact path="/" Component={SignIn} />
+              <Route exact path="/admin" Component={AdminSignIn} />
+              <Route exact path="/cart" Component={Cart} />
+              <Route exact path="/orders" Component={Order} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </CartContextProvider>
+    </OrderContextProvider>
   );
 }
 
